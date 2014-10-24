@@ -1,5 +1,5 @@
 (*
- * Copyright (c) 2013-2014 Thomas Gazagnaire <thomas@gazagnaire.org>
+ * Copyright (c) 2014 Thomas Gazagnaire <thomas@gazagnaire.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -28,7 +28,7 @@ val to_char: char -> char -> char
 
 (** {2 Strings} *)
 
-type t = string
+type t = [`Hex of string]
 (** The type of hexadecimal encodings. *)
 
 val of_string: ?pretty:bool -> string -> t
