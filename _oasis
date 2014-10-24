@@ -1,0 +1,27 @@
+OASISFormat:      0.3
+Name:             hex
+Version:          0.1.0
+Synopsis:         Hexadecimal converter
+Authors:          Thomas Gazagnaire
+License:          ISC
+Plugins:          META (0.3), DevFiles (0.3)
+BuildTools:       ocamlbuild
+
+Library hex
+  Path:           lib/
+  Findlibname:    hex
+  Modules:        Hex
+
+Executable test
+  Path:           lib_test/
+  MainIs:         test.ml
+  Build$:         flag(tests)
+  CompiledObject: best
+  Install:        false
+  BuildDepends:   hex
+
+
+Test test_hex
+  Run$:               flag(tests)
+  Command:            $test
+  WorkingDirectory:   lib_test
