@@ -28,7 +28,7 @@ val to_char: char -> char -> char
 
 (** {2 Strings} *)
 
-type t = string
+type t = [`Hex of string]
 (** The type of hexadecimal encodings. *)
 
 val of_string: ?pretty:bool -> string -> t

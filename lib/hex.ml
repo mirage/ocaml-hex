@@ -14,7 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *)
 
-type t = string
+type t = [`Hex of string]
 
 let invalid_arg fmt =
   Printf.ksprintf (fun str -> raise (Invalid_argument str)) fmt
@@ -45,13 +45,13 @@ let of_string ?(pretty=false) s =
       if (i+1) mod 27 = 0 then Buffer.add_char buf '\n'
       else if i+1 <> n then Buffer.add_char buf ' '
   done;
-  Buffer.contents buf
+  `Hex (Buffer.contents buf)
 
 let can_skip = function
   | ' ' | '\t' | '\n' | '\r' | '-' -> true
   | _ -> false
 
-let to_string s =
+let to_string (`Hex s) =
   if s = "" then ""
   else
     let n = String.length s in
