@@ -11,6 +11,7 @@ Library hex
   Path:           lib/
   Findlibname:    hex
   Modules:        Hex
+  BuildDepends:   cstruct
 
 Executable test
   Path:           lib_test/
@@ -18,7 +19,7 @@ Executable test
   Build$:         flag(tests)
   CompiledObject: best
   Install:        false
-  BuildDepends:   hex
+  BuildDepends:   hex, cstruct
 
 
 Test test_hex

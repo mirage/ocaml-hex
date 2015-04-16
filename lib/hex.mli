@@ -1,4 +1,5 @@
 (*
+ * Copyright (c) 2015 Trevor Summers Smith <trevorsummerssmith@gmail.com>
  * Copyright (c) 2014 Thomas Gazagnaire <thomas@gazagnaire.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -31,13 +32,21 @@ val to_char: char -> char -> char
 type t = [`Hex of string]
 (** The type of hexadecimal encodings. *)
 
-val of_string: ?pretty:bool -> string -> t
+val of_string: ?ignore:char list -> string -> t
 (** [of_string s] is the hexadecimal representation of the binary
-    string [s]. If [pretty] is set, the hexadecimal is formatted to 80
-    columms with some space, to ease reading it. The default value of
-    [pretty] is [false]) *)
+    string [s]. If [ignore] is set, skip the characters in the list when
+    converting. Eg [of_string ~ignore:[' '] "a f"].
+    The default value of [ignore] is [[]]) *)
 
 val to_string: t -> string
 (** [to_string h] is binary string corresponding to the hexadecimal
     encoding [h]. The decoding function will skip whitespaces, tabs
     and newlines. *)
+
+(** {2 Cstruct} *)
+
+val of_cstruct: ?ignore:char list -> Cstruct.t -> t
+(** See [of_string] *)
+
+val to_cstruct: t -> Cstruct.t
+(** See [to_string] *)
