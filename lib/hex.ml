@@ -1,4 +1,5 @@
 (*
+ * Copyright (c) 2015 Trevor Summers Smith <trevorsummerssmith@gmail.com>
  * Copyright (c) 2014 Thomas Gazagnaire <thomas@gazagnaire.org>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -34,37 +35,60 @@ let to_char x y =
   in
   Char.chr (code x lsl 4 + code y)
 
-let of_string ?(pretty=false) s =
-  let n = String.length s in
-  let buf = Buffer.create (n*2) in
-  for i = 0 to n-1 do
-    let x, y = of_char s.[i] in
-    Buffer.add_char buf x;
-    Buffer.add_char buf y;
-    if pretty then
-      if (i+1) mod 27 = 0 then Buffer.add_char buf '\n'
-      else if i+1 <> n then Buffer.add_char buf ' '
+let of_helper ?(ignore=[]) (next : int -> char) len =
+  let buf = Buffer.create len in
+  for i = 0 to len - 1 do
+    let c = next i in
+    if List.mem c ignore then ()
+    else
+      let x,y = of_char c in
+      Buffer.add_char buf x;
+      Buffer.add_char buf y;
   done;
   `Hex (Buffer.contents buf)
 
-let can_skip = function
-  | ' ' | '\t' | '\n' | '\r' | '-' -> true
-  | _ -> false
+let of_string ?(ignore=[]) s =
+  of_helper
+    ~ignore:ignore
+    (fun i -> s.[i])
+    (String.length s)
 
-let to_string (`Hex s) =
-  if s = "" then ""
+let to_helper ~empty_return ~create ~set (`Hex s) =
+  if s = "" then empty_return
   else
     let n = String.length s in
-    let buf = Buffer.create (1 + n/2) in
+    let buf = create (n/2) in
     let rec aux i j =
       if i >= n then ()
-      else if can_skip s.[i] then aux (i+1) (i+2)
-      else if j >= n then invalid_arg "Hex.to_string: invalid hex string"
-      else if can_skip s.[j] then aux i (j+1)
+      else if j >= n then invalid_arg "hex conversion: invalid hex string"
       else (
-        Buffer.add_char buf (to_char s.[i] s.[j]);
+        set buf (i/2) (to_char s.[i] s.[j]);
         aux (j+1) (j+2)
       )
     in
     aux 0 1;
-    Buffer.contents buf
+    buf
+
+let to_string hex =
+  to_helper
+    ~empty_return:""
+    ~create:(Bytes.create)
+    ~set:(Bytes.set)
+    hex
+
+let of_cstruct ?(ignore=[]) cs =
+  let open Cstruct in
+  of_helper
+    ~ignore:ignore
+    (fun i -> Bigarray.Array1.get cs.buffer (cs.off+i))
+    cs.len
+
+(* Allocate just once for to_cstruct *)
+let empty_cstruct = Cstruct.of_string ""
+
+let to_cstruct hex =
+  to_helper
+    ~empty_return:empty_cstruct
+    ~create:(Cstruct.create)
+    ~set:(Cstruct.set_char)
+    hex
