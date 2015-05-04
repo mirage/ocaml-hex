@@ -50,3 +50,21 @@ val of_cstruct: ?ignore:char list -> Cstruct.t -> t
 
 val to_cstruct: t -> Cstruct.t
 (** See [to_string] *)
+
+(** {2 Debugging} *)
+
+val hexdump: ?print_row_numbers:bool -> ?print_chars:bool -> t -> unit
+(** [hexdump h] dumps the hex encoding to stdout in the following format:
+
+    [{00000000: 6865 6c6c 6f20 776f 726c 6420 6865 6c6c  hello world hell
+    00000010: 6f20 776f 726c 640a                      o world.}]
+
+    This is the same format as emacs hexl-mode, and is a very similar format
+    to hexdump -C. '\t' and '\n' are printed as '.'.in the char column.
+
+    [print_row_numbers] and [print_chars] both default to [true]. Setting
+    either to [false] does not print the column.
+*)
+
+val hexdump_s: ?print_row_numbers:bool -> ?print_chars:bool -> t -> string
+(** Same as [hexdump] except returns a string. *)

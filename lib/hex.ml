@@ -92,3 +92,62 @@ let to_cstruct hex =
     ~create:(Cstruct.create)
     ~set:(Cstruct.set_char)
     hex
+
+let hexdump_s ?(print_row_numbers=true) ?(print_chars=true) (`Hex s) =
+  let char_len = 16 in (* row width in # chars *)
+  let hex_len = char_len * 2 in (* row width in # hex chars *)
+  (* Buf length is roughly 4... could put this in exactly but very brittle *)
+  let buf = Buffer.create ((String.length s) * 4) in
+  let ( <= ) buf s = Buffer.add_string buf s in
+  (* Create three columns -- row #, hex and ascii chars*)
+  let n = String.length s in
+  let rows = (n / hex_len) + (if n mod hex_len = 0 then 0 else 1) in
+  for row = 0 to rows-1 do
+    let last_row = row = rows-1 in
+    (* First column is row number *)
+    if print_row_numbers then
+      buf <= Printf.sprintf "%.8d: " row;
+    (* Row length is hex_length, unless we are on the last row and we
+       have less than hex_length left *)
+    let row_len = if last_row then
+        (let rem = n mod hex_len in
+         if rem = 0 then hex_len else rem)
+      else hex_len in
+    for i = 0 to row_len-1 do
+      (* Second column is the hex *)
+      if i mod 4 = 0 && i <> 0 then buf <= Printf.sprintf " ";
+      let i = i + (row * hex_len) in
+      buf <= Printf.sprintf "%c" (String.get s i)
+    done;
+    (* This is only needed for the last row -- pad if less than len *)
+    if last_row then
+      let missed_chars = hex_len - row_len in
+      let pad = missed_chars in
+      (* Every four chars add spacing *)
+      let pad = pad + (missed_chars / 4) in
+      buf <= Printf.sprintf "%s" (String.make pad ' ')
+    else ();
+    (* Third column is ascii *)
+    if print_chars then begin
+      buf <= "  ";
+      let rec aux i j =
+        if i > row_len - 2 then ()
+        else begin
+          let pos = i + (row * hex_len) in
+          let pos' = pos + 1 in
+          let c = to_char (String.get s pos) (String.get s pos') in
+          let () = match c with
+            | '\t' | '\n' -> buf <= "."
+            | _ -> buf <= Printf.sprintf "%c" c
+          in ();
+          aux (j+1) (j+2)
+        end
+      in
+      aux 0 1;
+    end;
+    buf <= "\n";
+  done;
+  Buffer.contents buf
+
+let hexdump ?print_row_numbers ?print_chars hex =
+  Printf.printf "%s" (hexdump_s ?print_row_numbers ?print_chars hex)
