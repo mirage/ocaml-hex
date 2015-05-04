@@ -1,9 +1,9 @@
 let () = Random.self_init ()
 
 let random_string () =
-  let s = String.create (Random.int 20483) in
+  let s = Bytes.create (Random.int 20483) in
   for i = 0 to String.length s - 1 do
-    s.[i] <- Char.chr (Random.int 256)
+    Bytes.set s i (Char.chr (Random.int 256))
   done;
   s
 

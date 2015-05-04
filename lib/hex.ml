@@ -31,7 +31,7 @@ let to_char x y =
     | '0'..'9' -> Char.code c - 48 (* Char.code '0' *)
     | 'A'..'F' -> Char.code c - 55 (* Char.code 'A' + 10 *)
     | 'a'..'f' -> Char.code c - 87 (* Char.code 'a' + 10 *)
-    | _ -> invalid_arg "Hex.of_char: %d is an invalid char" (Char.code c)
+    | _ -> invalid_arg "Hex.to_char: %d is an invalid char" (Char.code c)
   in
   Char.chr (code x lsl 4 + code y)
 
