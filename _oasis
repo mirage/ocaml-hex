@@ -2,7 +2,7 @@ OASISFormat:      0.3
 Name:             hex
 Version:          0.1.0
 Synopsis:         Hexadecimal converter
-Authors:          Thomas Gazagnaire
+Authors:          Thomas Gazagnaire, Trevor Summers Smith
 License:          ISC
 Plugins:          META (0.3), DevFiles (0.3)
 BuildTools:       ocamlbuild
