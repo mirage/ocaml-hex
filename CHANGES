@@ -1,0 +1,11 @@
+0.2.0: 04/05/2015
+* Add an `opam` file
+* Add Travis CI files
+* Add `Hex.of_cstruct` and `Hex.to_cstruct` to converters from and to cstructs
+  (#5 by @trevorsummerssmith)
+* Add `Hex.hexdump` to pretty-print an hex value (#6 by @trevorsummerssmith)
+* Change the optional argument of `Hex.of_string` to take a list of characters
+  to ignore (#6 by @trevorsummerssmith)
+
+0.1.0: 24/09/2014
+* Initial release
