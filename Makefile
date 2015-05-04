@@ -42,7 +42,7 @@ configure:
 
 NAME    = hex
 VERSION = $(shell grep 'Version:' _oasis | sed 's/Version: *//')
-ARCHIVE = https://github.com/mirage/irmin/archive/$(VERSION).tar.gz
+ARCHIVE = https://github.com/mirage/ocaml-hex/archive/$(VERSION).tar.gz
 
 release:
 	git tag -a $(VERSION) -m "Version $(VERSION)."
