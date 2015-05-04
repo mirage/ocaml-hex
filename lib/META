@@ -1,6 +1,6 @@
 # OASIS_START
-# DO NOT EDIT (digest: 244cbcd181d886c930d70cde7b71773d)
-version = "0.1.0"
+# DO NOT EDIT (digest: 50bb1aaf67c753cafc7086fa46078421)
+version = "0.2.0"
 description = "Hexadecimal converter"
 requires = "cstruct"
 archive(byte) = "hex.cma"
