@@ -1,6 +1,6 @@
 ## ocaml-hex
 
-Mininal library providing hexadecimal converters.
+Minimal library providing hexadecimal converters.
 
 ```ocaml
 #require "hex";;
