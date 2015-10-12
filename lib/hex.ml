@@ -21,6 +21,16 @@ let invalid_arg fmt =
   Printf.ksprintf (fun str -> raise (Invalid_argument str)) fmt
 
 let hexa = "0123456789abcdef"
+and hexa1 =
+  "0000000000000000111111111111111122222222222222223333333333333333\
+   4444444444444444555555555555555566666666666666667777777777777777\
+   88888888888888889999999999999999aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbb\
+   ccccccccccccccccddddddddddddddddeeeeeeeeeeeeeeeeffffffffffffffff"
+and hexa2 =
+  "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
+   0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
+   0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
+   0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 
 let of_char c =
   let x = Char.code c in
@@ -35,7 +45,16 @@ let to_char x y =
   in
   Char.chr (code x lsl 4 + code y)
 
-let of_helper ?(ignore=[]) (next : int -> char) len =
+let of_string_fast s =
+  let len = String.length s in
+  let buf = Bytes.create (len * 2) in
+  for i = 0 to len - 1 do
+    Bytes.set buf       (i * 2)  hexa1.[Char.code s.[i]];
+    Bytes.set buf (succ (i * 2)) hexa2.[Char.code s.[i]];
+  done;
+  `Hex buf
+
+let of_helper ~ignore (next : int -> char) len =
   let buf = Buffer.create len in
   for i = 0 to len - 1 do
     let c = next i in
@@ -47,11 +66,10 @@ let of_helper ?(ignore=[]) (next : int -> char) len =
   done;
   `Hex (Buffer.contents buf)
 
-let of_string ?(ignore=[]) s =
-  of_helper
-    ~ignore:ignore
-    (fun i -> s.[i])
-    (String.length s)
+let of_string ?ignore s =
+  match ignore with
+    None -> of_string_fast s
+  | Some ignore -> of_helper ~ignore (fun i -> s.[i]) (String.length s)
 
 let to_helper ~empty_return ~create ~set (`Hex s) =
   if s = "" then empty_return
