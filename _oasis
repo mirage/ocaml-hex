@@ -1,6 +1,6 @@
-OASISFormat:      0.3
+OASISFormat:      0.4
 Name:             hex
-Version:          0.2.0
+Version:          1.0.0
 Synopsis:         Hexadecimal converter
 Authors:          Thomas Gazagnaire, Trevor Summers Smith
 License:          ISC
@@ -11,7 +11,7 @@ Library hex
   Path:           lib/
   Findlibname:    hex
   Modules:        Hex
-  BuildDepends:   cstruct
+  BuildDepends:   cstruct, bytes
 
 Executable test
   Path:           lib_test/
@@ -21,8 +21,18 @@ Executable test
   Install:        false
   BuildDepends:   hex, cstruct
 
-
 Test test_hex
   Run$:               flag(tests)
   Command:            $test
   WorkingDirectory:   lib_test
+
+AlphaFeatures: ocamlbuild_more_args
+
+Document hex
+  Type: ocamlbuild (0.3)
+  BuildTools: ocamldoc
+  Title: API reference for Hex
+  XOCamlbuildPath: .
+  XOCamlbuildExtraArgs:
+    "-docflags '-t ocaml-hex -colorize-code -short-functors -charset utf-8'"
+  XOCamlbuildLibraries: hex
