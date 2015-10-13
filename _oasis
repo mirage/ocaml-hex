@@ -11,7 +11,7 @@ Library hex
   Path:           lib/
   Findlibname:    hex
   Modules:        Hex
-  BuildDepends:   cstruct
+  BuildDepends:   cstruct, bytes
 
 Executable test
   Path:           lib_test/
