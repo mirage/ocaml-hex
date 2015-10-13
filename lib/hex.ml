@@ -90,11 +90,7 @@ let to_helper ~empty_return ~create ~set (`Hex s) =
     buf
 
 let to_string hex =
-  to_helper
-    ~empty_return:""
-    ~create:(Bytes.create)
-    ~set:(Bytes.set)
-    hex
+  to_helper ~empty_return:"" ~create:Bytes.create ~set:Bytes.set hex
 
 let of_cstruct ?(ignore=[]) cs =
   let open Cstruct in
@@ -108,10 +104,7 @@ let empty_cstruct = Cstruct.of_string ""
 
 let to_cstruct hex =
   to_helper
-    ~empty_return:empty_cstruct
-    ~create:(Cstruct.create)
-    ~set:(Cstruct.set_char)
-    hex
+    ~empty_return:empty_cstruct ~create:Cstruct.create ~set:Cstruct.set_char hex
 
 let hexdump_s ?(print_row_numbers=true) ?(print_chars=true) (`Hex s) =
   let char_len = 16 in (* row width in # chars *)
