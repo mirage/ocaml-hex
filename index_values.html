@@ -33,7 +33,8 @@ Same as <code class="code">hexdump</code> except returns a string.
 </td></tr>
 <tr><td><a href="Hex.html#VALof_cstruct">of_cstruct</a> [<a href="Hex.html">Hex</a>]</td>
 <td><div class="info">
-See <code class="code">of_string</code>
+<code class="code">of_cstruct buf</code> is the hexadecimal representation of the buffer
+    <code class="code">buf</code>.
 </div>
 </td></tr>
 <tr><td><a href="Hex.html#VALof_string">of_string</a> [<a href="Hex.html">Hex</a>]</td>
@@ -51,13 +52,14 @@ See <code class="code">of_string</code>
 </td></tr>
 <tr><td><a href="Hex.html#VALto_cstruct">to_cstruct</a> [<a href="Hex.html">Hex</a>]</td>
 <td><div class="info">
-See <code class="code">to_string</code>
+<code class="code">to_cstruct t</code> is the buffer <code class="code">b</code> such that <code class="code">of_cstruct b</code> is
+    <code class="code">t</code>.
 </div>
 </td></tr>
 <tr><td><a href="Hex.html#VALto_string">to_string</a> [<a href="Hex.html">Hex</a>]</td>
 <td><div class="info">
-<code class="code">to_string h</code> is binary string corresponding to the hexadecimal
-    encoding <code class="code">h</code>.
+<code class="code">to_string t</code> is the binary string <code class="code">s</code> such that <code class="code">of_string s</code> is
+    <code class="code">t</code>.
 </div>
 </td></tr>
 </table>

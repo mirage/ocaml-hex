@@ -8,10 +8,10 @@
 <link title="Index of types" rel=Appendix href="index_types.html">
 <link title="Index of values" rel=Appendix href="index_values.html">
 <link title="Index of modules" rel=Appendix href="index_modules.html">
-<link title="Hex" rel="Chapter" href="Hex.html"><link title="Char" rel="Section" href="#2_Char">
-<link title="Strings" rel="Section" href="#2_Strings">
-<link title="Cstruct" rel="Section" href="#2_Cstruct">
-<link title="Debugging" rel="Section" href="#2_Debugging">
+<link title="Hex" rel="Chapter" href="Hex.html"><link title="Characters" rel="Section" href="#char">
+<link title="Strings" rel="Section" href="#string">
+<link title="Cstruct" rel="Subsection" href="#cstruct">
+<link title="Debugging" rel="Subsection" href="#2_Debugging">
 <title>ocaml-hex : Hex</title>
 </head>
 <body>
@@ -20,11 +20,21 @@
 <h1>Module <a href="type_Hex.html">Hex</a></h1>
 
 <pre><span class="keyword">module</span> Hex: <code class="code"><span class="keyword">sig</span></code> <a href="Hex.html">..</a> <code class="code"><span class="keyword">end</span></code></pre><div class="info module top">
-Hexadecimal encoding.<br>
+Hexadecimal encoding.
+<p>
+
+    <code class="code"><span class="constructor">Hex</span></code> defines hexadecimal encodings for <a href="Hex.html#char">characters</a>,
+    <a href="Hex.html#string">strings</a> and <a href="Hex.html#cstruct">Cstruct.t</a> buffers.<br>
 </div>
 <hr width="100%">
+
+<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = <code class="type">[ `Hex of string ]</code> </pre>
+<div class="info ">
+The type var hexadecimal values.<br>
+</div>
+
 <br>
-<h2 id="2_Char">Char</h2><br>
+<h1 id="char">Characters</h1><br>
 
 <pre><span id="VALof_char"><span class="keyword">val</span> of_char</span> : <code class="type">char -> char * char</code></pre><div class="info ">
 <code class="code">of_char c</code> is the the hexadecimal encoding of the character
@@ -36,35 +46,30 @@ Hexadecimal encoding.<br>
     hexadecimal encoding.<br>
 </div>
 <br>
-<h2 id="2_Strings">Strings</h2><br>
-
-<pre><span id="TYPEt"><span class="keyword">type</span> <code class="type"></code>t</span> = <code class="type">[ `Hex of string ]</code> </pre>
-<div class="info ">
-The type of hexadecimal encodings.<br>
-</div>
-
+<h1 id="string">Strings</h1><br>
 
 <pre><span id="VALof_string"><span class="keyword">val</span> of_string</span> : <code class="type">?ignore:char list -> string -> <a href="Hex.html#TYPEt">t</a></code></pre><div class="info ">
 <code class="code">of_string s</code> is the hexadecimal representation of the binary
-    string <code class="code">s</code>. If <code class="code">ignore</code> is set, skip the characters in the list when
-    converting. Eg <code class="code">of_string ~ignore:[<span class="string">' '</span>] <span class="string">"a f"</span></code>.
-    The default value of <code class="code">ignore</code> is <code class="code">[]</code>)<br>
+    string <code class="code">s</code>. If <code class="code">ignore</code> is set, skip the characters in the list
+    when converting. Eg <code class="code">of_string ~ignore:[<span class="string">' '</span>] <span class="string">"a f"</span></code>. The default
+    value of <code class="code">ignore</code> is <code class="code">[]</code>).<br>
 </div>
 
 <pre><span id="VALto_string"><span class="keyword">val</span> to_string</span> : <code class="type"><a href="Hex.html#TYPEt">t</a> -> string</code></pre><div class="info ">
-<code class="code">to_string h</code> is binary string corresponding to the hexadecimal
-    encoding <code class="code">h</code>. The decoding function will skip whitespaces, tabs
-    and newlines.<br>
+<code class="code">to_string t</code> is the binary string <code class="code">s</code> such that <code class="code">of_string s</code> is
+    <code class="code">t</code>.<br>
 </div>
 <br>
-<h2 id="2_Cstruct">Cstruct</h2><br>
+<h2 id="cstruct">Cstruct</h2><br>
 
 <pre><span id="VALof_cstruct"><span class="keyword">val</span> of_cstruct</span> : <code class="type">?ignore:char list -> Cstruct.t -> <a href="Hex.html#TYPEt">t</a></code></pre><div class="info ">
-See <code class="code">of_string</code><br>
+<code class="code">of_cstruct buf</code> is the hexadecimal representation of the buffer
+    <code class="code">buf</code>.<br>
 </div>
 
 <pre><span id="VALto_cstruct"><span class="keyword">val</span> to_cstruct</span> : <code class="type"><a href="Hex.html#TYPEt">t</a> -> Cstruct.t</code></pre><div class="info ">
-See <code class="code">to_string</code><br>
+<code class="code">to_cstruct t</code> is the buffer <code class="code">b</code> such that <code class="code">of_cstruct b</code> is
+    <code class="code">t</code>.<br>
 </div>
 <br>
 <h2 id="2_Debugging">Debugging</h2><br>
@@ -73,16 +78,19 @@ See <code class="code">to_string</code><br>
 <code class="code">hexdump h</code> dumps the hex encoding to stdout in the following format:
 <p>
 
-    <code class="code">{00000000: 6865 6c6c 6f20 776f 726c 6420 6865 6c6c  hello world hell
-    00000010: 6f20 776f 726c 640a                      o world.}</code>
+    <code class="code">{
+    00000000: 6865 6c6c 6f20 776f 726c 6420 6865 6c6c  hello world hell
+    00000010: 6f20 776f 726c 640a                      o world.
+    }</code>
 <p>
 
-    This is the same format as emacs hexl-mode, and is a very similar format
-    to hexdump -C. '\t' and '\n' are printed as '.'.in the char column.
+    This is the same format as emacs hexl-mode, and is a very similar
+    format to hexdump -C. '\t' and '\n' are printed as '.'.in the char
+    column.
 <p>
 
-    <code class="code">print_row_numbers</code> and <code class="code">print_chars</code> both default to <code class="code"><span class="keyword">true</span></code>. Setting
-    either to <code class="code"><span class="keyword">false</span></code> does not print the column.<br>
+    <code class="code">print_row_numbers</code> and <code class="code">print_chars</code> both default to
+    <code class="code"><span class="keyword">true</span></code>. Setting either to <code class="code"><span class="keyword">false</span></code> does not print the column.<br>
 </div>
 
 <pre><span id="VALhexdump_s"><span class="keyword">val</span> hexdump_s</span> : <code class="type">?print_row_numbers:bool -> ?print_chars:bool -> <a href="Hex.html#TYPEt">t</a> -> string</code></pre><div class="info ">

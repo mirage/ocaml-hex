@@ -9,9 +9,9 @@
 </head>
 <body>
 <code class="code"><span class="keyword">sig</span><br>
+&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">Hex</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;]<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;of_char&nbsp;:&nbsp;char&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;char&nbsp;*&nbsp;char<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;to_char&nbsp;:&nbsp;char&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;char&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;char<br>
-&nbsp;&nbsp;<span class="keyword">type</span>&nbsp;t&nbsp;=&nbsp;[&nbsp;<span class="keywordsign">`</span><span class="constructor">Hex</span>&nbsp;<span class="keyword">of</span>&nbsp;string&nbsp;]<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;of_string&nbsp;:&nbsp;?ignore:char&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Hex</span>.t<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;to_string&nbsp;:&nbsp;<span class="constructor">Hex</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;string<br>
 &nbsp;&nbsp;<span class="keyword">val</span>&nbsp;of_cstruct&nbsp;:&nbsp;?ignore:char&nbsp;list&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Cstruct</span>.t&nbsp;<span class="keywordsign">-&gt;</span>&nbsp;<span class="constructor">Hex</span>.t<br>
