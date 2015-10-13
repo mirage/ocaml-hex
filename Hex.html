@@ -10,8 +10,8 @@
 <link title="Index of modules" rel=Appendix href="index_modules.html">
 <link title="Hex" rel="Chapter" href="Hex.html"><link title="Characters" rel="Section" href="#char">
 <link title="Strings" rel="Section" href="#string">
-<link title="Cstruct" rel="Subsection" href="#cstruct">
-<link title="Debugging" rel="Subsection" href="#2_Debugging">
+<link title="Cstruct" rel="Section" href="#cstruct">
+<link title="Debugging" rel="Section" href="#1_Debugging">
 <title>ocaml-hex : Hex</title>
 </head>
 <body>
@@ -60,7 +60,7 @@ The type var hexadecimal values.<br>
     <code class="code">t</code>.<br>
 </div>
 <br>
-<h2 id="cstruct">Cstruct</h2><br>
+<h1 id="cstruct">Cstruct</h1><br>
 
 <pre><span id="VALof_cstruct"><span class="keyword">val</span> of_cstruct</span> : <code class="type">?ignore:char list -> Cstruct.t -> <a href="Hex.html#TYPEt">t</a></code></pre><div class="info ">
 <code class="code">of_cstruct buf</code> is the hexadecimal representation of the buffer
@@ -72,7 +72,7 @@ The type var hexadecimal values.<br>
     <code class="code">t</code>.<br>
 </div>
 <br>
-<h2 id="2_Debugging">Debugging</h2><br>
+<h1 id="1_Debugging">Debugging</h1><br>
 
 <pre><span id="VALhexdump"><span class="keyword">val</span> hexdump</span> : <code class="type">?print_row_numbers:bool -> ?print_chars:bool -> <a href="Hex.html#TYPEt">t</a> -> unit</code></pre><div class="info ">
 <code class="code">hexdump h</code> dumps the hex encoding to stdout in the following format:
