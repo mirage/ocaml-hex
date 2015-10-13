@@ -1,4 +1,4 @@
-OASISFormat:      0.3
+OASISFormat:      0.4
 Name:             hex
 Version:          1.0.0
 Synopsis:         Hexadecimal converter
@@ -25,3 +25,14 @@ Test test_hex
   Run$:               flag(tests)
   Command:            $test
   WorkingDirectory:   lib_test
+
+AlphaFeatures: ocamlbuild_more_args
+
+Document hex
+  Type: ocamlbuild (0.3)
+  BuildTools: ocamldoc
+  Title: API reference for Hex
+  XOCamlbuildPath: .
+  XOCamlbuildExtraArgs:
+    "-docflags '-t ocaml-hex -colorize-code -short-functors -charset utf-8'"
+  XOCamlbuildLibraries: hex
