@@ -1,3 +1,8 @@
+1.0.0: 13/10/2015
+* Fix performance issues: make `of_string` less consy when `ignore` is empty
+  (#13, fix by @yallop)
+* Add missing `Bytes` dependency (#16)
+
 0.2.0: 04/05/2015
 * Add an `opam` file
 * Add Travis CI files
