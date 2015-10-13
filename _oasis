@@ -1,6 +1,6 @@
 OASISFormat:      0.3
 Name:             hex
-Version:          0.2.0
+Version:          1.0.0
 Synopsis:         Hexadecimal converter
 Authors:          Thomas Gazagnaire, Trevor Summers Smith
 License:          ISC
@@ -20,7 +20,6 @@ Executable test
   CompiledObject: best
   Install:        false
   BuildDepends:   hex, cstruct
-
 
 Test test_hex
   Run$:               flag(tests)
