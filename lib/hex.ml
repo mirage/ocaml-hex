@@ -49,8 +49,10 @@ let of_string_fast s =
   let len = String.length s in
   let buf = Bytes.create (len * 2) in
   for i = 0 to len - 1 do
-    Bytes.set buf       (i * 2)  hexa1.[Char.code s.[i]];
-    Bytes.set buf (succ (i * 2)) hexa2.[Char.code s.[i]];
+    Bytes.unsafe_set buf (i * 2)
+      (String.unsafe_get hexa1 (Char.code (String.unsafe_get s i)));
+    Bytes.unsafe_set buf (succ (i * 2))
+      (String.unsafe_get hexa2 (Char.code (String.unsafe_get s i)));
   done;
   `Hex buf
 
