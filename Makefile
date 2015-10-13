@@ -50,7 +50,7 @@ doc/html/.git:
 	mkdir -p doc/html
 	cd doc/html && (\
 		git init && \
-		git remote add origin git@github.com:mirage/$(NAME).git && \
+		git remote add origin git@github.com:mirage/ocaml-hex.git && \
 		git checkout -b gh-pages \
 	)
 
