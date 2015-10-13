@@ -7,8 +7,12 @@ dev-repo:     "https://github.com/mirage/ocaml-hex.git"
 license:      "ISC"
 
 build: [
-  ["./configure" "--prefix" prefix "--enable-tests"]
+  ["./configure" "--prefix" prefix]
   [make]
+]
+build-test: [
+  ["./configure" "--prefix" prefix "--enable-tests"]
+  [make "test"]
 ]
 install: [make "install"]
 remove:  ["ocamlfind" "remove" "hex"]
