@@ -1,0 +1,12 @@
+B ../_build/default/lib
+B ../_build/default/lib_test
+FLG -w -40
+PKG bigarray
+PKG bytes
+PKG cstruct
+PKG ocplib-endian
+PKG ocplib-endian.bigstring
+PKG sexplib
+PKG sexplib.0
+PKG unix
+S .

@@ -5,18 +5,10 @@ homepage:     "https://github.com/mirage/ocaml-hex"
 bug-reports:  "https://github.com/mirage/ocaml-hex/issues"
 dev-repo:     "https://github.com/mirage/ocaml-hex.git"
 license:      "ISC"
-
-build: [
-  ["./configure" "--prefix" prefix]
-  [make]
-]
-build-test: [
-  ["./configure" "--prefix" prefix "--enable-tests"]
-  [make "test"]
-]
-install: [make "install"]
-remove:  ["ocamlfind" "remove" "hex"]
+build: [ [ "jbuilder" "build" ] ]
+build-test: [ [ "jbuilder" "runtest" ] ]
 depends: [
   "ocamlfind" {build}
+  "jbuilder" {>="1.0.8+beta8"}
   "cstruct" {>= "1.7.0"}
 ]
