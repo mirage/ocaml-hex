@@ -1,8 +1,9 @@
 v1.1.0 2017-05-23
 -----------------
 
-* Port build to [Jbuilder](https://github.com/janestreet/jbuilder).
-* Modernise Travis CI test matrix.
+* Port build to [Jbuilder](https://github.com/janestreet/jbuilder) (#19 @avsm).
+* Modernise Travis CI test matrix (#19 @avsm).
+* Add `LICENSE` file (#18 @djs55).
 
 v1.0.0 2015-10-13
 -----------------
