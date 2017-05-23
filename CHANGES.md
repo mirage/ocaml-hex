@@ -2,6 +2,7 @@ v1.1.0 2017-05-23
 -----------------
 
 * Port build to [Jbuilder](https://github.com/janestreet/jbuilder).
+* Modernise Travis CI test matrix.
 
 v1.0.0 2015-10-13
 -----------------
