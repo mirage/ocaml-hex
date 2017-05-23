@@ -1,9 +1,8 @@
-## ocaml-hex
+ocaml-hex -- a minimal library providing hexadecimal converters
+---------------------------------------------------------------
 
 [![Build Status](https://travis-ci.org/mirage/ocaml-hex.svg)](https://travis-ci.org/mirage/ocaml-hex)
-[![docs](https://img.shields.io/badge/doc-online-blue.svg)](https://mirage.github.io/ocaml-hex/Hex.html)
-
-Minimal library providing hexadecimal converters.
+[![docs](https://img.shields.io/badge/doc-online-blue.svg)](http://docs.mirage.io/hex/)
 
 ```ocaml
 #require "hex";;
