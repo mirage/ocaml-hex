@@ -6,6 +6,7 @@ install: wget https://raw.githubusercontent.com/ocaml/ocaml-travisci-skeleton/ma
 script: bash ./.travis-docker.sh
 env:
  global:
+   - PRE_INSTALL_HOOK="cd /home/opam/opam-repository && git pull origin master && opam update -u -y"
    - PACKAGE="hex"
  matrix:
    - DISTRO=debian-stable OCAML_VERSION=4.02.3
