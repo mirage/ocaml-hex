@@ -1,0 +1,9 @@
+(executables
+ ((names (fuzz)) (libraries (crowbar hex)))
+)
+
+(alias
+ ((name    runtest)
+  (deps    (fuzz.exe))
+  (action  (run ${<}))))
+
