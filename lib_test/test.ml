@@ -2,10 +2,10 @@ let () = Random.self_init ()
 
 let random_string () =
   let s = Bytes.create (Random.int 20483) in
-  for i = 0 to String.length s - 1 do
+  for i = 0 to Bytes.length s - 1 do
     Bytes.set s i (Char.chr (Random.int 256))
   done;
-  s
+  Bytes.to_string s
 
 let check msg x y =
   if x = y then ()
