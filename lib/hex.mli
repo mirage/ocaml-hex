@@ -75,3 +75,8 @@ val hexdump: ?print_row_numbers:bool -> ?print_chars:bool -> t -> unit
 
 val hexdump_s: ?print_row_numbers:bool -> ?print_chars:bool -> t -> string
 (** Same as [hexdump] except returns a string. *)
+
+(** {1 Pretty printing} *)
+
+val pp : Format.formatter -> t -> unit
+val show : t -> string
