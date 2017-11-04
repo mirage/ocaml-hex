@@ -1,3 +1,10 @@
+v1.2.0 2017-11-05
+-----------------
+
+* Fix build with OCaml 4.06 (and -safe-string) (#25 @djs55)
+* Add pretty-printers (#23 @vbmithr)
+* Make jbuilder a build dependency (#22 @samoht)
+
 v1.1.1 2017-05-26
 -----------------
 
