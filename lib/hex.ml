@@ -164,3 +164,8 @@ let hexdump_s ?(print_row_numbers=true) ?(print_chars=true) (`Hex s) =
 
 let hexdump ?print_row_numbers ?print_chars hex =
   Printf.printf "%s" (hexdump_s ?print_row_numbers ?print_chars hex)
+
+let pp ppf (`Hex hex) =
+  Format.pp_print_string ppf hex
+
+let show (`Hex hex) = hex
