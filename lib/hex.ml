@@ -73,6 +73,9 @@ let of_string ?ignore s =
     None -> of_string_fast s
   | Some ignore -> of_helper ~ignore (fun i -> s.[i]) (String.length s)
 
+let of_bytes ?ignore b =
+  of_string ?ignore (Bytes.unsafe_to_string b)
+
 let to_helper ~empty_return ~create ~set (`Hex s) =
   if s = "" then empty_return
   else
@@ -97,7 +100,7 @@ let to_string hex = Bytes.to_string @@ to_bytes hex
 let of_cstruct ?(ignore=[]) cs =
   let open Cstruct in
   of_helper
-    ~ignore:ignore
+    ~ignore
     (fun i -> Bigarray.Array1.get cs.buffer (cs.off+i))
     cs.len
 
@@ -107,6 +110,18 @@ let empty_cstruct = Cstruct.of_string ""
 let to_cstruct hex =
   to_helper
     ~empty_return:empty_cstruct ~create:Cstruct.create ~set:Cstruct.set_char hex
+
+let of_bigstring ?(ignore=[]) buf =
+  of_helper
+    ~ignore
+    (Bigarray.Array1.get buf)
+    (Bigarray.Array1.dim buf)
+
+let to_bigstring hex =
+  to_helper
+    ~empty_return:empty_cstruct.buffer
+    ~create:Bigarray.(Array1.create char c_layout)
+    ~set:Bigarray.Array1.set hex
 
 let hexdump_s ?(print_row_numbers=true) ?(print_chars=true) (`Hex s) =
   let char_len = 16 in (* row width in # chars *)
