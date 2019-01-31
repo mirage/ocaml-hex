@@ -78,5 +78,6 @@ val hexdump_s: ?print_row_numbers:bool -> ?print_chars:bool -> t -> string
 
 (** {1 Pretty printing} *)
 
-val pp : Format.formatter -> t -> unit
+val pp : Format.formatter -> t -> unit [@@ocaml.toplevel_printer]
+
 val show : t -> string

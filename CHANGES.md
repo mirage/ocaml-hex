@@ -1,3 +1,11 @@
+dev
+---
+
+* Install toplevel printers automatically in modern utop (@avsm)
+* Port from jbuilder to dune (@avsm)
+* Use `dune-release` instead of topkg (@avsm)
+* Update opam metadata to 2.0 format (@avsm)
+
 v1.2.0 2017-11-05
 -----------------
 
