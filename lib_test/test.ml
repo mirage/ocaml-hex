@@ -31,7 +31,7 @@ let test_cs s =
 let test_suite test =
   test "";
   test "deadbeef";
-  for i = 0 to 100 do
+  for _ = 0 to 100 do
     test (random_string ())
   done
 
