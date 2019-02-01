@@ -74,7 +74,7 @@ let of_string ?ignore s =
   | Some ignore -> of_helper ~ignore (fun i -> s.[i]) (String.length s)
 
 let of_bytes ?ignore b =
-  of_string ?ignore (Bytes.unsafe_to_string b)
+  of_string ?ignore (Bytes.to_string b)
 
 let to_helper ~empty_return ~create ~set (`Hex s) =
   if s = "" then empty_return
