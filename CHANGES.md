@@ -1,10 +1,12 @@
-dev
----
+v1.3.0 2019-02-01
+-----------------
 
+* Add `to/of_bytes/bigstring` functions. (#27 @vbmithr)
 * Install toplevel printers automatically in modern utop (@avsm)
 * Port from jbuilder to dune (@avsm)
 * Use `dune-release` instead of topkg (@avsm)
 * Update opam metadata to 2.0 format (@avsm)
+* Improve ocamldoc (@avsm)
 
 v1.2.0 2017-11-05
 -----------------

@@ -101,5 +101,9 @@ val hexdump_s: ?print_row_numbers:bool -> ?print_chars:bool -> t -> string
 (** {1 Pretty printing} *)
 
 val pp : Format.formatter -> t -> unit [@@ocaml.toplevel_printer]
+(** [pp fmt t] will output a human-readable hex representation of [t]
+    to the formatter [fmt]. *)
 
 val show : t -> string
+(** [show t] will return a human-readable hex representation of [t] as
+    a string. *)
