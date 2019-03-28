@@ -1,3 +1,14 @@
+v1.4.0 2019-03-28
+-----------------
+
+* Drop the hard dependency on `unix` that is transitively
+  brought in by cstruct/bigarray.  This is done by using
+  the new `bigarray-compat` opam package that does the
+  right thing on OCaml 4.07+ to not depend on unix.
+  On older OCaml compilers the dependency will still be
+  there and must be manually dropped with `-dontlink`, but
+  we encourage users to use a newer compiler (#29 @TheLortex)
+
 v1.3.0 2019-02-01
 -----------------
 
