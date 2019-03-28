@@ -1,6 +1,6 @@
 (executables
  (names test)
- (libraries hex))
+ (libraries hex bigarray-compat))
 
 (alias
  (name runtest)

@@ -9,6 +9,7 @@ depends: [
   "ocaml"
   "dune" {build & >= "1.0"}
   "cstruct" {>= "1.7.0"}
+  "bigarray-compat" {>= "1.0.0"}
 ]
 build: [
   ["dune" "subst"] {pinned}
