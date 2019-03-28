@@ -36,7 +36,7 @@ let test_suite test =
   done
 
 let test_cs_array () =
-  let open Bigarray in
+  let open Bigarray_compat in
   let arr = Array1.of_array char c_layout
       [|'0'; '1'; '2'; '3'; '4'; '5';
         '6'; '7'; '8'; '9'; 'a'; 'b';
