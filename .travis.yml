@@ -9,7 +9,6 @@ env:
    - PRE_INSTALL_HOOK="cd /home/opam/opam-repository && git pull origin master && opam update -u -y"
    - PACKAGE="hex"
  matrix:
-   - DISTRO=debian-stable OCAML_VERSION=4.02
    - DISTRO=debian-testing OCAML_VERSION=4.03
    - DISTRO=ubuntu-lts OCAML_VERSION=4.04
    - DISTRO=ubuntu OCAML_VERSION=4.05
