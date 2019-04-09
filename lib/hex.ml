@@ -34,6 +34,9 @@ and hexa2 =
    0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\
    0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 
+let char_is_printable chr =
+  chr >= ' ' && chr <= '~'
+
 let of_char c =
   let x = Char.code c in
   hexa.[x lsr 4], hexa.[x land 0xf]
@@ -168,10 +171,10 @@ let hexdump_s ?(print_row_numbers=true) ?(print_chars=true) (`Hex s) =
           let pos = i + (row * hex_len) in
           let pos' = pos + 1 in
           let c = to_char (String.get s pos) (String.get s pos') in
-          let () = match c with
-            | '\t' | '\n' -> buf <= "."
-            | _ -> buf <= Printf.sprintf "%c" c
-          in ();
+          if char_is_printable c then
+            buf <= Printf.sprintf "%c" c
+          else
+            buf <= ".";
           aux (j+1) (j+2)
         end
       in
