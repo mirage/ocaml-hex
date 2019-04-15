@@ -61,6 +61,8 @@ let test_hexdump () =
     let s = Hex.hexdump_s hex in
     check "hexdump" s answer
   in
+  (* unprintable *)
+  test "\x00\x01\x09\x10\x1f\x80\xff" "00000000: 0001 0910 1f80 ff                        .......\n";
   (* Test out the various padding situations we need to get right *)
   (* Less than 1 row *)
   test "i am less" "00000000: 6920 616d 206c 6573 73                   i am less\n";
