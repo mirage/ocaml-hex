@@ -88,7 +88,7 @@ let to_helper ~empty_return ~create ~set (`Hex s) =
     let buf = create (n/2) in
     let rec aux i j =
       if i >= n then ()
-      else if j >= n then invalid_arg "hex conversion: invalid hex string"
+      else if j >= n then invalid_arg "Hex conversion: Hex string cannot have an odd number of characters."
       else (
         set buf (i/2) (to_char s.[i] s.[j]);
         aux (j+1) (j+2)
