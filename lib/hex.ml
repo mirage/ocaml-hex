@@ -15,8 +15,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  *)
 
-module Bigarray = Bigarray_compat
-
 type t = [`Hex of string]
 
 let invalid_arg fmt =
