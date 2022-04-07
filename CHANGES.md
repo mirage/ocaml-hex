@@ -1,3 +1,13 @@
+v1.5.0 2022-04-07
+-----------------
+
+* Only print printable ASCII characters (#17 @copy)
+* Improve error message with odd number of characters (#35 @dialohq)
+* Raise lower bound to OCaml 4.08 (#37 @hannesm)
+* Remove bigarray-compat dependency (#37 @hannesm)
+* Remove "build" from dune dependency (#34 @CraigFE)
+* Improve documentation of `of_string` (#37 @hannesm, fixes #33 #36)
+
 v1.4.0 2019-03-28
 -----------------
 
