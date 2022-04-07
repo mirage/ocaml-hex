@@ -71,10 +71,10 @@ let of_helper ~ignore (next : int -> char) len =
   done;
   `Hex (Buffer.contents buf)
 
-let of_string ?ignore s =
+let of_string ?(ignore = []) s =
   match ignore with
-    None -> of_string_fast s
-  | Some ignore -> of_helper ~ignore (fun i -> s.[i]) (String.length s)
+  | [] -> of_string_fast s
+  | ignore -> of_helper ~ignore (fun i -> s.[i]) (String.length s)
 
 let of_bytes ?ignore b =
   of_string ?ignore (Bytes.to_string b)
