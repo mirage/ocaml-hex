@@ -46,7 +46,7 @@ let to_char x y =
     | 'a'..'f' -> Char.code c - 87 (* Char.code 'a' + 10 *)
     | _ -> invalid_arg "Hex.to_char: %d is an invalid char" (Char.code c)
   in
-  Char.chr (code x lsl 4 + code y)
+  Char.unsafe_chr (code x lsl 4 + code y)
 
 let of_string_fast s =
   let len = String.length s in
