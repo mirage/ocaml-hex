@@ -81,7 +81,7 @@ let of_bytes ?ignore b =
   of_string ?ignore (Bytes.to_string b)
 
 let to_helper ~empty_return ~create ~set (`Hex s) =
-  if s = "" then empty_return
+  if String.length s = 0 then empty_return
   else
     let n = String.length s in
     let buf = create (n/2) in
