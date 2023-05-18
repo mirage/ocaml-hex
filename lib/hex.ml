@@ -39,14 +39,20 @@ let of_char c =
   let x = Char.code c in
   hexa.[x lsr 4], hexa.[x land 0xf]
 
+let to_char_invalid c =
+  invalid_arg "Hex.to_char: %d is an invalid char" (Char.code c)
+  [@@inline never][@@local never][@@specialise never]
+
+let code c = match c with
+  | '0'..'9' -> Char.code c - 48 (* Char.code '0' *)
+  | 'A'..'F' -> Char.code c - 55 (* Char.code 'A' + 10 *)
+  | 'a'..'f' -> Char.code c - 87 (* Char.code 'a' + 10 *)
+  | _ -> to_char_invalid c
+  [@@inline]
+
 let to_char x y =
-  let code c = match c with
-    | '0'..'9' -> Char.code c - 48 (* Char.code '0' *)
-    | 'A'..'F' -> Char.code c - 55 (* Char.code 'A' + 10 *)
-    | 'a'..'f' -> Char.code c - 87 (* Char.code 'a' + 10 *)
-    | _ -> invalid_arg "Hex.to_char: %d is an invalid char" (Char.code c)
-  in
   Char.unsafe_chr (code x lsl 4 + code y)
+  [@@inline]
 
 let of_string_fast s =
   let len = String.length s in
