@@ -58,7 +58,7 @@ let of_string_fast s =
     Bytes.unsafe_set buf (succ (i * 2))
       (String.unsafe_get hexa2 c)
   done;
-  `Hex (Bytes.to_string buf)
+  `Hex (Bytes.unsafe_to_string buf)
 
 let of_helper ~ignore (next : int -> char) len =
   let buf = Buffer.create len in
@@ -99,7 +99,7 @@ let to_helper ~empty_return ~create ~set (`Hex s) =
 let to_bytes hex =
   to_helper ~empty_return:Bytes.empty ~create:Bytes.create ~set:Bytes.set hex
 
-let to_string hex = Bytes.to_string @@ to_bytes hex
+let to_string hex = Bytes.unsafe_to_string @@ to_bytes hex
 
 let of_cstruct ?(ignore=[]) cs =
   let open Cstruct in
