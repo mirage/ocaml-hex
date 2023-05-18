@@ -39,25 +39,32 @@ let of_char c =
   let x = Char.code c in
   hexa.[x lsr 4], hexa.[x land 0xf]
 
+let to_char_invalid c =
+  invalid_arg "Hex.to_char: %d is an invalid char" (Char.code c)
+  [@@inline never][@@local never][@@specialise never]
+
+let code c = match c with
+  | '0'..'9' -> Char.code c - 48 (* Char.code '0' *)
+  | 'A'..'F' -> Char.code c - 55 (* Char.code 'A' + 10 *)
+  | 'a'..'f' -> Char.code c - 87 (* Char.code 'a' + 10 *)
+  | _ -> to_char_invalid c
+  [@@inline]
+
 let to_char x y =
-  let code c = match c with
-    | '0'..'9' -> Char.code c - 48 (* Char.code '0' *)
-    | 'A'..'F' -> Char.code c - 55 (* Char.code 'A' + 10 *)
-    | 'a'..'f' -> Char.code c - 87 (* Char.code 'a' + 10 *)
-    | _ -> invalid_arg "Hex.to_char: %d is an invalid char" (Char.code c)
-  in
-  Char.chr (code x lsl 4 + code y)
+  Char.unsafe_chr (code x lsl 4 + code y)
+  [@@inline]
 
 let of_string_fast s =
   let len = String.length s in
   let buf = Bytes.create (len * 2) in
   for i = 0 to len - 1 do
+    let c = String.unsafe_get s i |> Char.code in
     Bytes.unsafe_set buf (i * 2)
-      (String.unsafe_get hexa1 (Char.code (String.unsafe_get s i)));
+      (String.unsafe_get hexa1 c);
     Bytes.unsafe_set buf (succ (i * 2))
-      (String.unsafe_get hexa2 (Char.code (String.unsafe_get s i)));
+      (String.unsafe_get hexa2 c)
   done;
-  `Hex (Bytes.to_string buf)
+  `Hex (Bytes.unsafe_to_string buf)
 
 let of_helper ~ignore (next : int -> char) len =
   let buf = Buffer.create len in
@@ -80,7 +87,7 @@ let of_bytes ?ignore b =
   of_string ?ignore (Bytes.to_string b)
 
 let to_helper ~empty_return ~create ~set (`Hex s) =
-  if s = "" then empty_return
+  if String.length s = 0 then empty_return
   else
     let n = String.length s in
     let buf = create (n/2) in
@@ -88,7 +95,7 @@ let to_helper ~empty_return ~create ~set (`Hex s) =
       if i >= n then ()
       else if j >= n then invalid_arg "Hex conversion: Hex string cannot have an odd number of characters."
       else (
-        set buf (i/2) (to_char s.[i] s.[j]);
+        set buf (i/2) (to_char (String.unsafe_get s i) (String.unsafe_get s j));
         aux (j+1) (j+2)
       )
     in
@@ -96,9 +103,23 @@ let to_helper ~empty_return ~create ~set (`Hex s) =
     buf
 
 let to_bytes hex =
-  to_helper ~empty_return:Bytes.empty ~create:Bytes.create ~set:Bytes.set hex
+  to_helper ~empty_return:Bytes.empty ~create:Bytes.create ~set:Bytes.unsafe_set hex
 
-let to_string hex = Bytes.to_string @@ to_bytes hex
+let to_string (`Hex s) =
+  if String.length s = 0 then ""
+  else
+    let n = String.length s in
+    let buf = Bytes.create (n/2) in
+    let rec aux i j =
+      if i >= n then ()
+      else if j >= n then invalid_arg "Hex conversion: Hex string cannot have an odd number of characters."
+      else (
+        Bytes.unsafe_set buf (i/2) (to_char (String.unsafe_get s i) (String.unsafe_get s j));
+        aux (j+1) (j+2)
+      )
+    in
+    aux 0 1;
+    Bytes.unsafe_to_string buf
 
 let of_cstruct ?(ignore=[]) cs =
   let open Cstruct in
