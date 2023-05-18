@@ -89,7 +89,7 @@ let to_helper ~empty_return ~create ~set (`Hex s) =
       if i >= n then ()
       else if j >= n then invalid_arg "Hex conversion: Hex string cannot have an odd number of characters."
       else (
-        set buf (i/2) (to_char s.[i] s.[j]);
+        set buf (i/2) (to_char (String.unsafe_get s i) (String.unsafe_get s j));
         aux (j+1) (j+2)
       )
     in
@@ -97,10 +97,10 @@ let to_helper ~empty_return ~create ~set (`Hex s) =
     buf
 
 let to_bytes hex =
-  to_helper ~empty_return:Bytes.empty ~create:Bytes.create ~set:Bytes.set hex
+  to_helper ~empty_return:Bytes.empty ~create:Bytes.create ~set:Bytes.unsafe_set hex
 
 let to_string hex = Bytes.unsafe_to_string @@ to_bytes hex
-
+(*
 let of_cstruct ?(ignore=[]) cs =
   let open Cstruct in
   of_helper
